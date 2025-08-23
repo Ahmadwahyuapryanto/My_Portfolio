@@ -142,4 +142,50 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+    // Tambahkan kode ini di dalam event listener DOMContentLoaded di script.js
+
+    // --- KODE ANIMASI SCROLL ---
+    const sections = document.querySelectorAll('section');
+
+    const observerOptions = {
+        root: null, // relatif terhadap viewport
+        rootMargin: '0px',
+        threshold: 0.1 // 10% dari elemen harus terlihat
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target); // Hentikan pengamatan setelah animasi berjalan
+            }
+        });
+    }, observerOptions);
+
+    sections.forEach(section => {
+        section.classList.add('fade-in-section'); // Tambahkan kelas awal
+        observer.observe(section);
+    });
+    // --- PERUBAHAN: Inisialisasi Portfolio Slider ---
+    var swiper = new Swiper(".portfolio-slider", {
+        effect: "coverflow",
+        grabCursor: true,
+        centeredSlides: true,
+        loop: true,
+        slidesPerView: "auto",
+        coverflowEffect: {
+          rotate: 0,
+          stretch: 0,
+          depth: 100,
+          modifier: 2.5,
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
 });
